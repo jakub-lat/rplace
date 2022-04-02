@@ -24,7 +24,7 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
     const elementHandle = await page.waitForSelector('iframe.Q-OBKuePQXXm3LGhGfv3k');
     const frame = (await elementHandle!.contentFrame())!;
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
     const canvas = await (await frame.evaluateHandle(canvasJsPath)).asElement()!;
     const data = await canvas.evaluate((c: HTMLCanvasElement, [x, y, w, h]) => c.getContext('2d').getImageData(x, y, w, h), [x, y, w, h]);

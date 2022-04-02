@@ -37,7 +37,7 @@ async function main() {
     setInterval(async () => {
         console.log('updating queue...');
         queue = await getPixelsToDraw();
-    }, 10 * 1000);
+    }, 30 * 1000);
 
     const port = parseInt(process.env.PORT) || 3000;
     console.log(`listening on :${port}`)
