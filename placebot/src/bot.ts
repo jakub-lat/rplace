@@ -1,14 +1,15 @@
 import puppeteer from 'puppeteer';
+import { RatelimitActiveError } from './utils';
 
 const placeTileJsPath = 'document.querySelector("body > mona-lisa-app > faceplate-csrf-provider > faceplate-alert-reporter > mona-lisa-embed").shadowRoot.querySelector("div > mona-lisa-share-container > div.bottom-controls > mona-lisa-status-pill").shadowRoot.querySelector("button")';
 const colorJsPath = (n: number) => `document.querySelector("body > mona-lisa-app > faceplate-csrf-provider > faceplate-alert-reporter > mona-lisa-embed").shadowRoot.querySelector("div > mona-lisa-share-container > mona-lisa-color-picker").shadowRoot.querySelector("div > div > div.palette > div:nth-child(${n}) > button")`;
 const confirmJsPath = 'document.querySelector("body > mona-lisa-app > faceplate-csrf-provider > faceplate-alert-reporter > mona-lisa-embed").shadowRoot.querySelector("div > mona-lisa-share-container > mona-lisa-color-picker").shadowRoot.querySelector("div > div > div.actions > button.confirm")';
 
-const sleep = (t: number) => new Promise(r => setTimeout(r, t));
 
 let page: puppeteer.Page;
+export let ratelimitEnd = Date.now();
 
-export async function start() {
+export async function start(username: string, password: string) {
     let browser = await puppeteer.launch({
         headless: false,
         defaultViewport: {
@@ -19,10 +20,15 @@ export async function start() {
     
     page = await browser.newPage();
 
-    await login(process.env.REDDIT_USERNAME!, process.env.REDDIT_PASSWORD!);
+    await login(username, password);
 }
 
+
 export async function draw(x: number, y: number, color: number) {
+    if(Date.now() < ratelimitEnd) {
+        throw new RatelimitActiveError();
+    }
+
     await page.goto(`https://www.reddit.com/r/place/?cx=${x}&cy=${y}`);
     await page.waitForSelector('.moeaZEzC0AbAvmDwN22Ma');
     await page.click('.moeaZEzC0AbAvmDwN22Ma');
@@ -44,6 +50,8 @@ export async function draw(x: number, y: number, color: number) {
 
     const confirmEl = (await frame.evaluateHandle(confirmJsPath)).asElement()!;
     await confirmEl.evaluate(x => (x as HTMLButtonElement).click());
+
+    ratelimitEnd = Date.now() + (5 * 60 * 1000);
 }
 
 async function login(username: string, password: string) {
