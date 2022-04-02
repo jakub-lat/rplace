@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Colors = void 0;
+var Colors;
+(function (Colors) {
+    Colors[Colors["red"] = 0] = "red";
+    Colors[Colors["orange"] = 1] = "orange";
+    Colors[Colors["yellow"] = 2] = "yellow";
+    Colors[Colors["darkGreen"] = 3] = "darkGreen";
+    Colors[Colors["lightGreen"] = 4] = "lightGreen";
+    Colors[Colors["darkBlue"] = 5] = "darkBlue";
+    Colors[Colors["lightBlue"] = 6] = "lightBlue";
+    Colors[Colors["skyBlue"] = 7] = "skyBlue";
+    Colors[Colors["darkPurple"] = 8] = "darkPurple";
+    Colors[Colors["lightPurple"] = 9] = "lightPurple";
+    Colors[Colors["pink"] = 10] = "pink";
+    Colors[Colors["brown"] = 11] = "brown";
+    Colors[Colors["black"] = 12] = "black";
+    Colors[Colors["darkGray"] = 13] = "darkGray";
+    Colors[Colors["lightGray"] = 14] = "lightGray";
+    Colors[Colors["white"] = 15] = "white";
+})(Colors = exports.Colors || (exports.Colors = {}));
