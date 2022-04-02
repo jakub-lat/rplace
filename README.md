@@ -6,7 +6,7 @@
     ```
     REDDIT_USERNAME=nazwaUzytkownika
     REDDIT_PASSWORD=haslo
-    SERVER_URL=http://rplace.cubepotato.eu:3000
+    SERVER_URL=http://rplace.cubepotato.eu
     ```
 
 4. Otwórz wiersz poleceń w folderze `./placebot` - otwórz ten folder w eksploratorze plików, wpisz `cmd` w pasku adresu, naciśnij enter

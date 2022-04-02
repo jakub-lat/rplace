@@ -8,7 +8,7 @@ let page: puppeteer.Page;
 export async function getPixelsAt(x: number, y: number, w: number, h: number): Promise<ImageData> {
     if(!browser) {
         browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             defaultViewport: {
                 width: 1000,
                 height: 800
