@@ -33,6 +33,7 @@ export class Queue<T> {
   
 
 export interface Client {
+  ready: boolean;
   id: string;
   ratelimitEnd: number;
 }

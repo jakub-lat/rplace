@@ -19,11 +19,13 @@ function connect(addr) {
         socket.on('connect', () => {
             console.log('connected to server');
             socket.emit('ratelimitUpdate', bot_1.ratelimitEnd);
+            socket.emit('ready');
         });
         socket.on('draw', ({ x, y, color }) => __awaiter(this, void 0, void 0, function* () {
             try {
-                yield (0, bot_1.draw)(x, y, color);
                 console.log('drawing: ', x, y, color);
+                yield (0, bot_1.draw)(x, y, color);
+                socket.emit('ready');
             }
             catch (err) {
                 if (err instanceof utils_1.RatelimitActiveError) {

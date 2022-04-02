@@ -18,6 +18,6 @@ var Colors;
     Colors[Colors["000000"] = 12] = "000000";
     Colors[Colors["898d90"] = 13] = "898d90";
     Colors[Colors["d4d7d9"] = 14] = "d4d7d9";
-    Colors[Colors["ffffff"] = 15] = "ffffff";
+    Colors[Colors["ffffff"] = 15] = "ffffff"; // white
 })(Colors = exports.Colors || (exports.Colors = {}));
 ;
