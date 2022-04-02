@@ -42,11 +42,12 @@ function main() {
         });
         setInterval(step, 1000);
         setInterval(() => __awaiter(this, void 0, void 0, function* () {
+            console.log('updating queue...');
             queue = yield getPixelsToDraw();
-            console.log('reloaded queue');
         }), 10 * 1000);
-        console.log('listening on :3000');
-        io.listen(3000);
+        const port = parseInt(process.env.PORT) || 3000;
+        console.log(`listening on :${port}`);
+        io.listen(port);
     });
 }
 function updateClient(id, newData) {
@@ -70,7 +71,7 @@ function step() {
             return;
         let px = queue.dequeue();
         let c = yield getNextFreeClient();
-        if (!c) {
+        if (!c || !c.ready) {
             queue.enqueue(px);
             return;
         }
@@ -84,14 +85,19 @@ function getPixelsToDraw() {
         let q = new utils_1.Queue();
         const { topLeftX, topLeftY, width, height } = image_json_1.default.props;
         const currentData = yield (0, placeCanvas_1.getPixelsAt)(topLeftX, topLeftY, width, height);
+        let total = 0;
+        let left = 0;
         for (const [x, y, color] of image_json_1.default.pixels) {
+            total++;
             const c = (0, utils_1.getColorAt)(currentData, x, y, width);
             if (colors_1.Colors[c] == color)
                 continue;
             let obj = { x: topLeftX + x, y: topLeftY + y, color: color + 1 };
             // console.log('adding to queue', obj);
             q.enqueue(obj);
+            left++;
         }
+        console.log(`${left}/${total} pixels left`);
         return q;
     });
 }

@@ -1,7 +1,7 @@
 {
     "props": {
-        "topLeftX": 5,
-        "topLeftY": 5,
+        "topLeftX": 360,
+        "topLeftY": 559,
         "width": 25,
         "height": 16
     },

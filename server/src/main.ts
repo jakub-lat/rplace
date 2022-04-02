@@ -35,8 +35,8 @@ async function main() {
 
     setInterval(step, 1000);
     setInterval(async () => {
+        console.log('updating queue...');
         queue = await getPixelsToDraw();
-        console.log('reloaded queue');
     }, 10 * 1000);
 
     const port = parseInt(process.env.PORT) || 3000;
@@ -81,14 +81,19 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     const {topLeftX, topLeftY, width, height} = image.props;
     const currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
 
+    let total = 0;
+    let left = 0;
     for (const [x, y, color] of image.pixels) {
+        total++;
         const c = getColorAt(currentData, x, y, width);
         if(Colors[c] == color) continue;
 
         let obj = {x: topLeftX + x, y: topLeftY + y, color: color + 1};
         // console.log('adding to queue', obj);
         q.enqueue(obj);
+        left++;
     }
+    console.log(`${left}/${total} pixels left`);
 
     return q;
 }

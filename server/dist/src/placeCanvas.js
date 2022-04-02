@@ -21,7 +21,7 @@ function getPixelsAt(x, y, w, h) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!browser) {
             browser = yield puppeteer_1.default.launch({
-                headless: false,
+                headless: true,
                 defaultViewport: {
                     width: 1000,
                     height: 800
