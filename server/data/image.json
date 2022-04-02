@@ -1,5 +1,11 @@
 {
-    "image": [
-        [560, 374, 12]
+    "props": {
+        "topLeftX": 5,
+        "topLeftY": 5,
+        "width": 10,
+        "height": 10
+    },
+    "pixels": [
+        [0, 0, 15]
     ]
 }
