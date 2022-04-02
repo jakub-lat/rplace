@@ -7,6 +7,7 @@ config();
 async function main() {
     const { REDDIT_USERNAME, REDDIT_PASSWORD, SERVER_URL } = process.env;
     await bot.start(REDDIT_USERNAME!, REDDIT_PASSWORD!);
+    console.log('bot ready');
     await sync.connect(SERVER_URL!);
 }
 
